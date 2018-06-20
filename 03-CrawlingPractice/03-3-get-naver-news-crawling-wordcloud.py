@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
-Created on Tue Dec 12 22:02:28 2017
 
 @author: yoon
+
 """
 
 import requests
@@ -24,7 +25,7 @@ for a in newslist_atag:
     url_list.append(a.get('href'))
     
 
-# 텍스트 정제 함수
+# 텍스트 정제 함수, 알파벳과 특수문자 제거
 def text_cleaning(text):
     result_list = []
     for item in text:
@@ -34,11 +35,11 @@ def text_cleaning(text):
         result_list.append(cleaned_text)
     return result_list
 
+# 텍스트 정제 함수, isalnum: 알파벳과 숫자 True, isdigit: 10진수 True
 def removeNumberNpunct(doc):
     text = ''.join(c for c in doc if c.isalnum() or c in '+, ')
     text = ''.join([i for i in text if not i.isdigit()])
     return text
-
 
 # 각 기사에서 텍스트만 정제하여 추출
 req = requests.get(url_list[0])
@@ -49,7 +50,7 @@ doc = None
 for item in soup.find_all('div', id='articleBodyContents'):
     text = text + str(item.find_all(text=True))
     text = ast.literal_eval(text)
-    doc = text_cleaning(text[9:])
+    doc = text_cleaning(text[9:-6])
     
 word_corpus = (' '.join(doc))
 word_corpus = removeNumberNpunct(word_corpus)
@@ -74,4 +75,4 @@ import webbrowser
 
 ranked_tags = count.most_common(40)
 taglist = pytagcloud.make_tags(ranked_tags, maxsize=80)
-pytagcloud.create_tag_image(taglist, 'wordcloud.jpg', size=(900, 600), fontname='Korean', rectangular=False)
+pytagcloud.create_tag_image(taglist, 'wordcloud.jpg', size=(900, 600), fontname='Nobile', rectangular=False)

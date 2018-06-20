@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
-Created on Mon Dec  4 23:53:09 2017
 
 @author: yoon
+
 """
 
 # -*- coding: utf-8 -*-
@@ -11,11 +12,11 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-req = requests.get('https://music.bugs.co.kr/chart')
+req = requests.get('http://www.melon.com/chart/index.htm')
 html = req.content
 soup = BeautifulSoup(html, 'lxml') # pip install lxml
-list_song = soup.find_all(name="p", attrs={"class":"title"})
-list_artist = soup.find_all(name="p", attrs={"class":"artist"})
+list_song = soup.find_all(name="div", attrs={"class":"rank01"})
+list_artist = soup.find_all(name="div", attrs={"class":"rank02"})
 
 # 곡명 추출
 for index in range(0, len(list_song)):

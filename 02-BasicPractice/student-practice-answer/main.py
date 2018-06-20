@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     student_list = [nayeon, dahyun, sana, momo, tzuyu]
     sorted_student_list = score_table.student_sortby_keyword(student_list, 'age', rank=5, reverse=False)
-    score_table.print_score_table(sorted_student_list)
+    #score_table.print_score_table(sorted_student_list)
 
     sorted_student_list = score_table.student_sortby_average(student_list, rank=5, reverse=True)
     score_table.print_score_table(sorted_student_list)
