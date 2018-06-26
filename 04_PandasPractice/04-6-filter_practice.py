@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
-Created on Mon Jan  8 23:16:22 2018
 
 @author: yoon
+
 """
 
 import pandas as pd
@@ -24,4 +25,18 @@ more_than_16 = stud_alcoh1[stud_alcoh1.age > 16]
 middle_school = stud_alcoh1[(stud_alcoh1['age'] > 13) | (stud_alcoh1['age'] < 16)]
 not_T_status = stud_alcoh1[(stud_alcoh1['Pstatus'] != 'T')]
 contains_G = stud_alcoh1[stud_alcoh1.famsize.str.contains('G')] # startswith 등 활용가능
-mother_job = stud_alcoh1.loc[stud_alcoh1.Mjob.isin(['at_home', 'services']), ['Mjob','Fjob', 'reason']]
+
+custom_list = ['at_home', 'services']
+column_list = ['Mjob','Fjob', 'reason']
+mother_job = stud_alcoh1.loc[stud_alcoh1.Mjob.isin(custom_list), column_list]
+
+
+
+
+
+
+
+
+
+
+

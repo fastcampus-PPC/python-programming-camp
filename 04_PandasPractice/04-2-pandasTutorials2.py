@@ -54,6 +54,8 @@ df[['Rev', 'test', 'col']]
 df.loc[df.index[0:3], 'Rev']
 df.loc[df.index[5:], 'col']
 df.loc[df.index[:3], ['col', 'test']]
+df.iloc[df.index[:3], 0:2]
+df.iloc[:3, 0:2]
 
 df.head()
 df.tail()

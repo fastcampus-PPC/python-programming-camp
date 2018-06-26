@@ -27,7 +27,7 @@ def CreateDataSet(Number=1):
 dataset = CreateDataSet(4)
 df = pd.DataFrame(data=dataset, columns=['State','Status','CustomerCount','StatusDate'])
 df.info()
-df.head()
+df.head(5)
 
 
 # datetime object를 index로 사용
@@ -58,20 +58,27 @@ sortdf.head(10)
 
 
 # 그룹 연산 적용
-Daily = df.reset_index().groupby(['State','StatusDate']).sum()
+Daily = df.groupby(['State','StatusDate']).sum()
 Daily.head()
 Daily.index
 
 
-# 이상치 계산하여 새로운 feature로 추가 (월 단위로 이상치 측정), transform 함수 : 각 원소는 그대로 유지하되, 원소간의 연산 결과를 새로운 피처로 사용
-StateYearMonth = Daily.groupby([Daily.index.get_level_values(0), Daily.index.get_level_values(1).year, Daily.index.get_level_values(1).month])
+# 이상치 계산하여 새로운 feature로 추가 (월 단위로 이상치 측정)
+# transform 함수 : 각 원소는 그대로 유지하되, 원소간의 연산 결과를 새로운 피처로 사용
+StateYearMonth = Daily.groupby([Daily.index.get_level_values(0), 
+                                Daily.index.get_level_values(1).year, 
+                                Daily.index.get_level_values(1).month])
 Daily['Lower'] = StateYearMonth['CustomerCount'].transform( lambda x: x.quantile(q=.25) - (1.5*x.quantile(q=.75)-x.quantile(q=.25)) )
 Daily['Upper'] = StateYearMonth['CustomerCount'].transform( lambda x: x.quantile(q=.75) + (1.5*x.quantile(q=.75)-x.quantile(q=.25)) )
 Daily['Max'] = StateYearMonth['CustomerCount'].transform( lambda x: x.max() )
 Daily['Outlier'] = (Daily['CustomerCount'] < Daily['Lower']) | (Daily['CustomerCount'] > Daily['Upper']) 
 
-# 참고 : apply는 그룹별 연산값을 리턴해주고, transform은 각 row의 연산값을 리턴한다.
 
 # 이상치 제외
 Daily = Daily[Daily['Outlier'] == False]
+
+
+
+
+
 

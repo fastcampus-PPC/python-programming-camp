@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
-Created on Mon Jan  8 22:55:37 2018
 
 @author: yoon
+
 """
 
 import pandas as pd
@@ -20,13 +21,13 @@ df.head()
 stud_alcoh = df.loc[: , "school":"guardian"]
 stud_alcoh.head()
 
-# 익명함수 생성(일급객체로 활용)
+# 함수 생성(일급객체로 활용)
 captalizer = lambda x: x.upper()
 
 # 범수형 변수 확인 및 대문자변환
 stud_alcoh['Mjob'].value_counts()
 stud_alcoh['Fjob'].value_counts()
-stud_alcoh['Mjob'].apply(captalizer) # error case
+stud_alcoh['Mjob'].apply(captalizer)
 stud_alcoh['Fjob'].apply(captalizer)
 stud_alcoh['Mjob'] = stud_alcoh['Mjob'].apply(captalizer)
 stud_alcoh['Fjob'] = stud_alcoh['Fjob'].apply(captalizer)
@@ -46,4 +47,11 @@ stud_alcoh['legal_drinker'] = stud_alcoh['age'].apply(lambda x: True if x > 17 e
 
 # 단순 logic 연산으로 동일한 쿼리
 stud_alcoh['legal_drinker'] = stud_alcoh['age'] > 17
+
+
+
+
+
+
+
 
