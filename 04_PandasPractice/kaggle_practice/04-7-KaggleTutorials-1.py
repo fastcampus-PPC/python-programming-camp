@@ -28,8 +28,9 @@ len(chipo['item_name'].value_counts())
 
 # item당 주문 총량 출력하기
 chipo_all = chipo.groupby('item_name').sum()
-del chipo_all['order_id']
-chipo_all.sort_values(['quantity'], ascending=False)
+chipo_all = chipo.groupby('item_name')['order_id'].count()
+chipo_all = chipo.groupby('item_name')['quantity'].sum()
+chipo_all.sort_values(ascending=False)
 
 
 # 달러 타입 변환하기
@@ -37,7 +38,7 @@ chipo['item_price'] = chipo['item_price'].apply(lambda x: float(x[1:]))
 
 
 # 주문당 평균 계산금액 출력하기
-chipo.groupby('order_id').sum().mean()['item_price']
+chipo.groupby('order_id')['item_price'].sum().mean()
 
 
 
