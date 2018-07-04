@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
-Created on Wed Jan 17 00:49:40 2018
 
 @author: yoon
+
 """
 
 import pandas as pd
@@ -11,6 +12,7 @@ import numpy as np
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
+from math import sqrt
 
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data', 
                  header=None, sep='\s+')
@@ -30,7 +32,7 @@ mlr.fit(X_train, y_train)
 y_pred = mlr.predict(X_test)
 
 print('Coefficients: \n', regr.coef_)
-print("Mean squared error: %.2f"% mean_squared_error(y_test, y_pred))
+print("root mean squared error: %.2f"% sqrt(mean_squared_error(y_test, y_pred)))
 print('Variance score: %.2f' % r2_score(y_test, y_pred))
 
 # 데이터 스케일링 : 표준화 (결과는 동일, linear_model 안에 자체구현 되어있기 때문)
@@ -46,6 +48,6 @@ mlr = linear_model.LinearRegression()
 mlr.fit(X_train, y_train)
 y_pred = mlr.predict(X_test)
 
-print('Coefficients: \n', regr.coef_)
-print("Mean squared error: %.2f"% mean_squared_error(y_test, y_pred))
+print('Coefficients: \n', mlr.coef_)
+print("root mean squared error: %.2f"% sqrt(mean_squared_error(y_test, y_pred)))
 print('Variance score: %.2f' % r2_score(y_test, y_pred))

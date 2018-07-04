@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
-Created on Wed Jan 17 00:49:24 2018
 
 @author: yoon
+
 """
 
 import pandas as pd
@@ -11,12 +12,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
+from math import sqrt
 
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data', 
                  header=None, sep='\s+')
 
 df.columns = ['CRIM', 'ZN', 'INDUS', 'CHAS', 
-              'NOX', 'RM', 'AGE', 'DIS', 'RAD', 
+              'NOX', 'RM', 'AGE', 'DIS', 'RAD',
               'TAX', 'PTRATIO', 'B', 'LSTAT', 'MEDV']
 df.head()
 
@@ -40,8 +42,8 @@ y_pred = regr.predict(X_test)
 # 회귀 계수 출력
 print('Coefficients: \n', regr.coef_)
 
-# MSE 출력
-print("Mean squared error: %.2f"% mean_squared_error(y_test, y_pred))
+# RMSE 출력
+print("root mean squared error: %.2f"% sqrt(mean_squared_error(y_test, y_pred)))
 
 # r-score 출력
 print('Variance score: %.2f' % r2_score(y_test, y_pred))
@@ -66,7 +68,7 @@ mlr.fit(X_train, y_train)
 y_pred = mlr.predict(X_test)
 
 print('Coefficients: \n', regr.coef_)
-print("Mean squared error: %.2f"% mean_squared_error(y_test, y_pred))
+print("root mean squared error: %.2f"% sqrt(mean_squared_error(y_test, y_pred)))
 print('Variance score: %.2f' % r2_score(y_test, y_pred))
 
 
