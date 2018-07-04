@@ -42,8 +42,8 @@ np.sort(arr_data4,axis=1)
 large_arr=np.random.rand(150)
 np.sort(large_arr)[::-1]
 
-# 상위 5%에 해당하는 index값 리턴하여, 최종적으로 5% 위치의 숫자 리턴
-np.sort(large_arr)[::-1][int(0.05*len(large_arr))]
+# 150개의 랜덤값 중, 상위 5%에 위치하는 값을 출력하기
+np.sort(large_arr)[::-1][int(len(large_arr) * 0.05)]
 
 # unique 함수 사용
 names=np.array(["Charles","Kilho","Hayoung","Charles","Hayoung","Kilho","Kilho"])
@@ -54,6 +54,12 @@ np.unique(ints)
 #### 모델링 활용 예제
 
 # 훈련셋과 시험셋 로딩
+import keras
+from keras.utils import np_utils
+from keras.datasets import mnist
+from keras.models import Sequential
+from keras.layers import Dense, Activation
+
 (X_train, Y_train), (X_test, Y_test) = mnist.load_data()
 
 # 데이터셋 전처리

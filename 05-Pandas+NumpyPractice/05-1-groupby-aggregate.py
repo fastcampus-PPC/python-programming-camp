@@ -18,7 +18,6 @@ chipo['item_price'] = chipo['item_price'].apply(lambda x: float(x[1:]))
 
 # 한 사람의 주문 내에서, 가장 비싼 음식과 가장 싼 음식의 편차 column 추가하기
 chipo_pricediff = chipo.groupby('order_id')['item_price'].agg(np.ptp)
-
 df = chipo_pricediff.to_frame().reset_index()
 df = df.rename(columns={'item_price': 'item_price_diff'})
 chipo = pd.merge(chipo, df, on='order_id', how='outer')
@@ -51,6 +50,7 @@ def text_cleaning(text):
         result_list.append(cleaned_text)
     return result_list
 
+chipo.choice_description.values
 chipo['choice_description'] = chipo['choice_description'].astype(str)
 result_data3 = chipo.groupby('item_name').get_group('Chicken Bowl')['choice_description']
 word_list = text_cleaning(result_data3)
@@ -106,3 +106,4 @@ print("The t-statistic and p-value not assuming equal variances is %.3f and %.3f
 # transform : apply와 유사하지만, 그룹단위의 연산을 group내 row마다 리턴
 # chipo_pricediff2= chipo.groupby('order_id').agg({'quantity': ['mean', 'std'],
 #                               'item_price': ['sum', 'min']})
+
