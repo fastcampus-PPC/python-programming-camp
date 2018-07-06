@@ -12,8 +12,7 @@ chipo.groupby('order_id').sum()[chipo_group.item_price >= 10].index.values
 
 
 # 각 아이템의 가격 구하기
-#### chipo['item_name'] = chipo['item_name'].apply(lambda x: x.replace("-", " "))
-chipo_filtered = chipo.drop_duplicates(['item_name','quantity', 'choice_descriptor'])
+chipo_filtered = chipo.drop_duplicates(['item_name', 'quantity', 'choice_descriptor'])
 chipo_one_prod = chipo_filtered[chipo_filtered.quantity == 1]
 price_per_item = chipo_one_prod.groupby('item_name').min()
 price_per_item.sort_values(by = "item_price", ascending = False)
@@ -25,7 +24,7 @@ chipo.groupby('order_id').sum().sort_values(by='item_price', ascending=False)['q
 ########################################################
 # “Veggie Salad Bowl”이 몇 번 주문되었는지 구하기
 chipo_salad = chipo[chipo['item_name'] == "Veggie Salad Bowl"]
-len(chipo_salad['order_id'].value_counts() == 1)
+len(chipo_salad)
 
 
 # “Chicken Bowl”을 2개 이상 주문한 사람 숫자 구하기
