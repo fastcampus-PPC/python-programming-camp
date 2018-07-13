@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+
+@author: yoon
+
+"""
+
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -47,3 +53,14 @@ for code in range(70000,70100):
             else:
                 score = '1'
             crawling_data.append([reple, score])
+
+
+# 크롤링된 리뷰 파일로 저장
+import csv
+
+with open('review_data.csv', 'w', encoding='utf-8') as file:
+    writer = csv.writer(file, delimiter=',')
+    writer.writerow(['review', 'like'])
+    for index in range(0, len(crawling_data)):
+        review = crawling_data[idx][0]
+        like = crawling_data[idx][0]
