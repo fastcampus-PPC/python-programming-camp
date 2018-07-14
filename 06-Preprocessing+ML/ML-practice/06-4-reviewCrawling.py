@@ -62,5 +62,6 @@ with open('review_data.csv', 'w', encoding='utf-8') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(['review', 'like'])
     for index in range(0, len(crawling_data)):
-        review = crawling_data[idx][0]
-        like = crawling_data[idx][0]
+        review = crawling_data[index][0]
+        like = crawling_data[index][1]
+        writer.writerow([review, like])
